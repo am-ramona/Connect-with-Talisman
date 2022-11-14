@@ -33,12 +33,6 @@ import composableFace from "./assets/images/face.png";
 import "./App.css";
 
 const talismanWallet = new TalismanWallet();
-const authError = new AuthError("tralala", talismanWallet);
-const baseDotsamaWallet = new BaseDotsamaWallet();
-const baseWalletError = new BaseWalletError("tralala", talismanWallet);
-const notInstalledError = new NotInstalledError("tralala", talismanWallet);
-const setupNotDoneError = new SetupNotDoneError("tralala", talismanWallet);
-const polkadotjsWallet = new PolkadotjsWallet();
 
 function App() {
   const [wallet, setWallet] = useState<WalletAccount>();
@@ -56,8 +50,6 @@ function App() {
       const wsProvider = new WsProvider("wss://rpc.polkadot.io");
       const api = await ApiPromise.create({ provider: wsProvider }).then(
         (api) => {
-          console.log("api", api);
-          console.log("api.genesisHash.toHex()", api.genesisHash.toHex());
           setAPI(api);
         }
       ); // await api.isReady;
@@ -107,9 +99,6 @@ function App() {
     }
 
     getBalance();
-    console.log("getBalance:", getBalance());
-
-    console.log("wallet.address: ", wallet?.address);
   }, [wallet, API]);
 
   useEffect(() => {
