@@ -51,30 +51,6 @@ function App() {
   const [balance, setBalance] = useState<string>("");
   const supportedWallets: Wallet[] = getWallets();
 
-  // const supportedWallets = getWallets();
-  // const wallet = getWalletBySource(source);
-  useEffect(() => {
-    console.log("isOpenModal", isOpenModal);
-    console.log("wallet", wallet);
-    console.log("supportedWallets", supportedWallets);
-    console.log("TalismanWallet: ", TalismanWallet);
-    console.log("talismanWallet", talismanWallet);
-    // console.log("the type WalletAccount: ", WalletAccount);
-    // console.log('AuthError', AuthError);
-    console.log("authError", authError);
-    console.log("authError.message", authError.message);
-    console.log("authError.wallet", authError.wallet);
-    console.log("authError.name", authError.name);
-    console.log("baseDotsamaWallet", baseDotsamaWallet);
-    console.log("baseWalletError", baseWalletError);
-    console.log("notInstalledError", notInstalledError);
-    console.log("polkadotjsWallet", polkadotjsWallet);
-    // console.log('SetupNotDoneError', SetupNotDoneError);
-    console.log("getWalletBySource", getWalletBySource);
-    console.log("getWallets", getWallets);
-    console.log("isWalletInstalled", isWalletInstalled);
-  }, [isOpenModal]);
-
   useEffect(() => {
     async function main() {
       const wsProvider = new WsProvider("wss://rpc.polkadot.io");
@@ -153,21 +129,21 @@ function App() {
   };
 
   const sendMoney = async () => {
-    // if (!address && !wallet?.address) return;
-    // let injector;
-    // let account;
-    // if (address) {
-    //   injector = await web3FromAddress(address);
-    //   account = address;
-    // } else if (wallet?.address) {
-    //   await web3Enable('My Talisman Dapp');
-    //   account  = wallet.address;
-    //   injector = await web3FromAddress(wallet.address);
-    // }
-    // if (!injector || !account) return;
-    // API?.tx.balances
-    //   .transfer('5C5555yEXUcmEJ5kkcCMvdZjUo7NGJiQJMS7vZXEeoMhj3VQ', 1)
-    //   .signAndSend(account, { signer: injector.signer }, (status) => { console.log({status}) });
+    if (!address && !wallet?.address) return;
+    let injector;
+    let account;
+    if (address) {
+      injector = await web3FromAddress(address);
+      account = address;
+    } else if (wallet?.address) {
+      await web3Enable('My Talisman Dapp');
+      account  = wallet.address;
+      injector = await web3FromAddress(wallet.address);
+    }
+    if (!injector || !account) return;
+    API?.tx.balances
+      .transfer('5C5555yEXUcmEJ5kkcCMvdZjUo7NGJiQJMS7vZXEeoMhj3VQ', 1)
+      .signAndSend(account, { signer: injector.signer }, (status) => { console.log({status}) });
   };
 
   return (
